@@ -45,21 +45,28 @@ namespace WindowsFormsChromaFireflyImage
         private static KeyData[,] _sKeys = 
         {
             {
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-                11,
-                12,
-                13,
-                14
+                -1, 14, 0,
+            },
+            {
+                13, -1, 1,
+            },
+            {
+                12, -1, 2,
+            },
+            {
+                11, -1, 3,
+            },
+            {
+                10, -1, 4,
+            },
+            {
+                9, -1, 5,
+            },
+            {
+                8, -1, 6,
+            },
+            {
+                -1, 7, -1
             },
         };
 
@@ -256,6 +263,10 @@ namespace WindowsFormsChromaFireflyImage
 
         static void SetColor(int index, Corale.Colore.Core.Color color)
         {
+            if (index < 0)
+            {
+                return;
+            }
             _mMousepadCustomEffect[index] = color;
             Corale.Colore.Core.Mousepad.Instance.SetCustom(_mMousepadCustomEffect);
         }
