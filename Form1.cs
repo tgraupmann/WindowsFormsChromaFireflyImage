@@ -94,23 +94,6 @@ namespace WindowsFormsChromaFireflyImage
             key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(KEY_CHROMA_FIREFLY_IMAGE);
             key.SetValue(KEY_IMAGE, _mFileName);
             key.Close();
-
-            Image image = _mPicture.Image;
-            if (null == image)
-            {
-                return;
-            }
-
-            Bitmap bitmap = image as Bitmap;
-            if (null == bitmap)
-            {
-                return;
-            }
-
-            _mMinX = 0;
-            _mMinY = 0;
-            _mMaxX = bitmap.Width - 1;
-            _mMaxY = bitmap.Height - 1;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -127,6 +110,7 @@ namespace WindowsFormsChromaFireflyImage
                     {
                         _mFileName = (string)key.GetValue(KEY_IMAGE);
                         LoadImage();
+                        ResetMarquee();
                     }
                 }
             }
@@ -345,6 +329,26 @@ namespace WindowsFormsChromaFireflyImage
             DisplayImageOnFirefly();
         }
 
+        private void ResetMarquee()
+        {
+            Image image = _mPicture.Image;
+            if (null == image)
+            {
+                return;
+            }
+
+            Bitmap bitmap = image as Bitmap;
+            if (null == bitmap)
+            {
+                return;
+            }
+
+            _mMinX = 0;
+            _mMinY = 0;
+            _mMaxX = bitmap.Width - 1;
+            _mMaxY = bitmap.Height - 1;
+        }
+
         private void _mButtonLoad_Click(object sender, EventArgs e)
         {
             _mLoadingTexture = true;
@@ -377,6 +381,9 @@ namespace WindowsFormsChromaFireflyImage
                 {
                     _mFileName = openFileDialog1.FileName;
                     LoadImage();
+
+                    ResetMarquee();
+
                     DisplayImageOnFirefly();
                 }
             }
